@@ -1,0 +1,124 @@
+openapi: 3.0.3
+info:
+  title: AI Image Generation Backend API
+  version: 1.0.0
+  description: |
+    Backend API for AI image generation requests, credit deduction/refund, and reporting.
+    
+    - All endpoints use JSON.
+    - All endpoints require the Firestore emulator to be running.
+
+servers:
+  - url: http://localhost:5000
+
+paths:
+  /createGenerationRequest:
+    post:
+      summary: Create an AI image generation request
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required:
+                - userId
+                - model
+                - style
+                - color
+                - size
+                - prompt
+              properties:
+                userId:
+                  type: string
+                model:
+                  type: string
+                  enum: [A, B]
+                style:
+                  type: string
+                  enum: [realistic, anime, oil painting, sketch, cyberpunk, watercolor]
+                color:
+                  type: string
+                  enum: [vibrant, monochrome, pastel, neon, vintage]
+                size:
+                  type: string
+                  enum: [512x512, 1024x1024, 1024x1792]
+                prompt:
+                  type: string
+      responses:
+        '201':
+          description: Generation request created
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  generationRequestId:
+                    type: string
+                  deductedCredits:
+                    type: integer
+                  currentCredits:
+                    type: integer
+                  imageUrl:
+                    type: string
+                    nullable: true
+        '400':
+          description: Invalid input or insufficient credits
+        '404':
+          description: User not found
+  /getUserCredits:
+    get:
+      summary: Get user credit balance and transaction history
+      parameters:
+        - in: query
+          name: userId
+          schema:
+            type: string
+          required: true
+      responses:
+        '200':
+          description: User credit info
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  currentCredits:
+                    type: integer
+                  transactions:
+                    type: array
+                    items:
+                      type: object
+                      properties:
+                        id:
+                          type: string
+                        type:
+                          type: string
+                          enum: [deduction, refund]
+                        credits:
+                          type: integer
+                        generationRequestId:
+                          type: string
+                        timestamp:
+                          type: string
+                          format: date-time
+        '400':
+          description: Missing userId
+        '404':
+          description: User not found
+  /scheduleWeeklyReport:
+    post:
+      summary: Trigger weekly report aggregation
+      responses:
+        '200':
+          description: Report generated
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  reportStatus:
+                    type: string
+                  anomaly:
+                    type: string
+                    nullable: true

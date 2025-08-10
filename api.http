@@ -1,0 +1,15 @@
+POST http://localhost:5000/createGenerationRequest
+Content-Type: application/json
+
+{
+  "userId": "user_test1",
+  "model": "B",
+  "style": "realistic",
+  "color": "vibrant",
+  "size": "512x512",
+  "prompt": "A cat in space"
+}
+
+GET http://localhost:5000/getUserCredits?userId=user_test1
+
+POST http://localhost:5000/scheduleWeeklyReport

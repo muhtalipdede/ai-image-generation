@@ -1,0 +1,4 @@
+flask
+google-cloud-firestore
+pytest
+functions-framework

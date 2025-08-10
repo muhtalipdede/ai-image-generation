@@ -1,0 +1,42 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pyc
+*.pyd
+*.pyo
+*.pdb
+*.egg-info/
+.eggs/
+*.egg
+*.env
+.env
+.venv
+venv/
+ENV/
+
+# VSCode
+.vscode/
+
+# macOS
+.DS_Store
+
+# Pytest
+.pytest_cache/
+
+# Firestore emulator
+firestore-debug.log
+firebase-debug.log
+seed/
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Node/npm (if ever used)
+node_modules/
+
+# Misc
+*.log
+*.sqlite3
+
