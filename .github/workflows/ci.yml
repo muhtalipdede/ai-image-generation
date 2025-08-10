@@ -20,4 +20,4 @@ jobs:
       - name: Run tests
         env:
           FIRESTORE_EMULATOR_HOST: localhost:8080
-        run: pytest
+        run: PYTHONPATH=src pytest
