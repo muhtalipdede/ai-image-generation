@@ -11,10 +11,8 @@ jobs:
           python-version: '3.10'
       - name: Install dependencies
         run: pip install -r requirements.txt
-      - name: Set up Firebase CLI
-        uses: w9jds/firebase-action@v2.2.0
-        with:
-          args: --version
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
       - name: Start Firestore Emulator
         run: |
           nohup firebase emulators:start --only firestore --project ai-image-generation-local > /tmp/emulator.log 2>&1 &
